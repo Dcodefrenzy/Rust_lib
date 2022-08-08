@@ -152,10 +152,6 @@ fn main() {
         "name":{"item":{"name": "name","value": "John Doe", "type": "string"},  "methods":{"max": "100", "required": "true", "min":"10"}},
         "password":{"item":{"name": "password", "value": "1234567", "type": "number"},  "methods":{"max": "100", "required": "true", "min":"10"}},  
         "phonenumber":{"item":{"name": "phonenumber", "value": "08133475878", "type": "number"},  "methods":{"max": "100", "required": "true", "min":"10"}}    
-
-
-
-
     
     }"#;
 

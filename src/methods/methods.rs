@@ -1,13 +1,31 @@
 use std::collections::HashMap;
 
+trait Helper {
+    fn convert_string_to_i32(required_string:&str) -> i32;
+
+    fn return_string_length_to_i32(required_string:&str) -> i32;
+}
+
+
 struct Method<'a> {
     method: &'static str,
     method_value: &'static str,
     items: &'a HashMap<String, HashMap<String, String>>
 }
 
+impl<'a> Helper for Method<'a> {
+    fn convert_string_to_i32(required_string:&str) -> i32 {
+        let return_str = required_string.parse::<i32>().unwrap_or_else(|e| panic!("{}", e));
+        return_str
+    }
 
-impl<'a> Method<'a> {
+    fn return_string_length_to_i32(required_string:&str) -> i32 {
+        let return_string :i32 = required_string.len().try_into().unwrap_or_else(|e| panic!("{}", e));
+        return_string
+    }
+}
+
+impl<'a>  Method<'a> {
 
     fn new((method, method_value):&(&'static str, &'static str), items:&'a HashMap<String, HashMap<String, String>>) -> Self{
             let method_wrapper = Method {
@@ -52,8 +70,10 @@ impl<'a> Method<'a> {
           result
     }
     fn max(val: &str, max:&str) -> Result<bool, bool>{
-        let val :i64 = val.len().try_into().unwrap();
-        let max = max.parse::<i64>().unwrap();
+        let max = Method::convert_string_to_i32(max);
+        let val :i32 = Method::return_string_length_to_i32(val);
+       // let val :i32 = val.len().try_into().unwrap();
+       // let max = max.parse::<i32>().unwrap();
         let result = if val <= max {
             println!("{} {}", max, val);
             Ok(true)
@@ -63,8 +83,11 @@ impl<'a> Method<'a> {
         result
     }
     fn min(val: &str, min:&str) -> Result<bool, bool>{
-        let val :i64 = val.len().try_into().unwrap();
-        let min = min.parse::<i64>().unwrap();
+        
+        let min = Method::convert_string_to_i32(min);
+        let val  = Method::return_string_length_to_i32(val);
+       // let val :i64 = val.len().try_into().unwrap();
+        //let min = min.parse::<i64>().unwrap();
         let result = if val <= min {
             println!("{} {}", min, val);
             Err(false)
@@ -72,6 +95,10 @@ impl<'a> Method<'a> {
             Ok(true)
         };
         result
+    }
+
+    fn send_err() {
+
     }
 }
 
@@ -177,6 +204,3 @@ mod method_test {
         assert_eq!(match_result, false);
     }
 }
-
-
-
